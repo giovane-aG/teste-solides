@@ -22,7 +22,7 @@ module.exports = class CreateUserGateway {
 
     } catch (error) {
 
-      if (error.status === axios.HttpStatusCode.BadRequest) {
+      if (error.response.status === axios.HttpStatusCode.BadRequest) {
         throw new BadRequestError(error.message);
       }
 
