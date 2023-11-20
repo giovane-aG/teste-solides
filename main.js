@@ -5,16 +5,31 @@ const CreateUserController = require('./modules/user/usecases/create-user/create
 const CreateUserService = require('./modules/user/usecases/create-user/create-user.service');
 const CreateUserGateway = require('./modules/user/gateways/create-user.gateway');
 
-const app = express();
-app.use(express.json());
+const LoginController = require('./modules/auth/usecases/login.controller');
+const LoginService = require('./modules/auth/usecases/login.service');
+const LoginGateway = require('./modules/auth/gateways/login.gateway');
 
+const baseUrl = 'https://serverest.dev/';
+
+const app = express();
 const router = Router();
 
-const createUserGateway = new CreateUserGateway('https://serverest.dev/');
+app.use(express.json());
+
+const createUserGateway = new CreateUserGateway(baseUrl);
 const createUserService = new CreateUserService(createUserGateway);
+
+const loginGateway = new LoginGateway(baseUrl);
+const loginService = new LoginService(loginGateway);
+
 
 new CreateUserController(
   createUserService,
+  router
+);
+
+new LoginController(
+  loginService,
   router
 );
 
