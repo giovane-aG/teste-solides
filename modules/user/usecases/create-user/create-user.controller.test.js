@@ -1,17 +1,18 @@
-const { spec, expect } = require('pactum');
+const { spec } = require('pactum');
+const { beforeEach, afterEach } = require('mocha')
 const { Router } = require('express');
 const CreateUserController = require('./create-user.controller');
 const CreateUserService = require('./create-user.service');
 
-const app = require('../../../../app');
-
+let server;
 const router = Router();
+const app = require('../../../../app');
 app.use('/api', router);
-const server = app.listen(3001);
+
 
 class CreateUserGatewayMock {
-  constructor(createUserService) {
-    this.createUserService = this.createUserService
+  constructor(gatewayUrl) {
+    this.gatewayUrl = this.gatewayUrl
   }
   async create() {
     return {
@@ -27,6 +28,16 @@ new CreateUserController(
 );
 
 describe('Create User Controller', () => {
+
+  before(() => {
+    server = app.listen(3001);
+
+  })
+
+  after(() => {
+    server.close()
+  })
+
   it('should create a new user', async () => {
     const response = await spec()
       .post('http://localhost:3001/api/create-user')
@@ -42,15 +53,16 @@ describe('Create User Controller', () => {
       })
   });
 
-  // it('should return an error when creating a user with an invalid email address', async () => {
-  //   await spec()
-  //     .post('http://localhost:3000/api/create-user')
-  //     .withBody({
-  //       name: 'John Doe',
-  //       email: 'johndoeemail.com',
-  //     })
-  //     .expectStatus(400)
-  //     .expectJson({ message: 'Invalid email address' });
-  // });
+  it('should return an error if there are missing user information', async () => {
+    await spec()
+      .post('http://localhost:3001/api/create-user')
+      .withBody({
+        nome: 'John Doe',
+        email: 'johndoe@example.com',
+        administrador: 'false',
+      })
+      .expectStatus(400)
+      .expectJson({ password: 'O campo password é obrigatório' });
+  });
 });
 

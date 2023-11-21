@@ -12,7 +12,6 @@ module.exports = class CreateUserController {
 
         response.status(200).json(result);
       } catch (error) {
-        console.log(error)
         response.status(error.statusCode).json(error.message);
       }
     })
