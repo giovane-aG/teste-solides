@@ -8,8 +8,8 @@ const CreateUserController = require('./modules/user/usecases/create-user/create
 const CreateUserService = require('./modules/user/usecases/create-user/create-user.service');
 const CreateUserGateway = require('./modules/user/gateways/create-user.gateway');
 
-const LoginController = require('./modules/auth/usecases/login.controller');
-const LoginService = require('./modules/auth/usecases/login.service');
+const LoginController = require('./modules/auth/usecases/login/login.controller');
+const LoginService = require('./modules/auth/usecases/login/login.service');
 const LoginGateway = require('./modules/auth/gateways/login.gateway');
 
 const createUserGateway = new CreateUserGateway(BASE_URL);

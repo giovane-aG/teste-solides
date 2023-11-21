@@ -8,9 +8,9 @@ const LoginService = require('./login.service');
 
 let server;
 const router = Router();
-const app = require('../../../app');
-const UnauthorizedError = require('../../shared/errors/unauthorized.error');
-const BadRequestError = require('../../shared/errors/bad-request.errors');
+const app = require('../../../../app');
+const UnauthorizedError = require('../../../shared/errors/unauthorized.error');
+const BadRequestError = require('../../../shared/errors/bad-request.errors');
 app.use('/api', router);
 
 class LoginGatewayMock {
