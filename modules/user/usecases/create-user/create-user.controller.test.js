@@ -40,7 +40,7 @@ describe('Create User Controller', () => {
         message: 'Cadastro realizado com sucesso',
         id: 'any_id'
       })
-  }); g
+  });
 
   // it('should return an error when creating a user with an invalid email address', async () => {
   //   await spec()
