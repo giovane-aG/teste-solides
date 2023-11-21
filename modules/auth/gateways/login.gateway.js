@@ -1,5 +1,6 @@
 const { default: axios } = require("axios");
 const BadRequestError = require("../../shared/errors/bad-request.errors");
+const UnauthorizedError = require("../../shared/errors/unauthorized.error");
 
 module.exports = class LoginGateway {
   constructor(gatewayUrl) {
@@ -16,6 +17,9 @@ module.exports = class LoginGateway {
     } catch (error) {
       if (error.response.status === axios.HttpStatusCode.BadRequest) {
         throw new BadRequestError(error.response.data);
+      }
+      if (error.response.status === axios.HttpStatusCode.Unauthorized) {
+        throw new UnauthorizedError(error.response.data)
       }
     }
   }

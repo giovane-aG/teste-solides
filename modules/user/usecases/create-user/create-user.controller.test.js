@@ -1,5 +1,4 @@
 const { spec } = require('pactum');
-const { beforeEach, afterEach } = require('mocha')
 const { Router } = require('express');
 const CreateUserController = require('./create-user.controller');
 const CreateUserService = require('./create-user.service');
